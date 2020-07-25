@@ -1,0 +1,11 @@
+BEGIN TRANSACTION;
+CREATE TABLE `borrowing_status` (`User_User_ID` INT NOT NULL, `Key_Key_ID` INT NOT NULL, `Date_From` TIMESTAMP NOT NULL, `Borrowing_Status_ID` INT NOT NULL, PRIMARY KEY (`Borrowing_Status_ID`), CONSTRAINT `fk_User_has_Key_User` FOREIGN KEY (`User_User_ID`) REFERENCES `user` (`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT `fk_User_has_Key_Key1` FOREIGN KEY (`Key_Key_ID`) REFERENCES `door_key` (`Door_Key_ID`) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE TABLE `door` (`Door_ID` INT NOT NULL, `Code` VARCHAR(45) NOT NULL, PRIMARY KEY (`Door_ID`));
+CREATE TABLE `door_key` (`Door_Key_ID` INT NOT NULL, `Code` VARCHAR(45) NOT NULL, PRIMARY KEY (`Door_Key_ID`));
+CREATE TABLE `key2door` (`Key_Key_ID` INT NOT NULL, `Door_Door_ID` INT NOT NULL, `Key2Door_ID` INT NOT NULL, PRIMARY KEY (`Key2Door_ID`), CONSTRAINT `fk_Key_has_Door_Key1` FOREIGN KEY (`Key_Key_ID`) REFERENCES `door_key` (`Door_Key_ID`) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT `fk_Key_has_Door_Door1` FOREIGN KEY (`Door_Door_ID`) REFERENCES `door` (`Door_ID`) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE TABLE `user` (`User_ID` INT NOT NULL, `Name` VARCHAR(45) NOT NULL, `Surname` VARCHAR(45) NOT NULL, PRIMARY KEY (`User_ID`));
+CREATE INDEX `fk_User_has_Key_Key1_idx` ON `borrowing_status` (`Key_Key_ID` ASC);
+CREATE INDEX `fk_User_has_Key_User_idx` ON `borrowing_status` (`User_User_ID` ASC);
+CREATE INDEX `fk_Key_has_Door_Door1_idx` ON `key2door` (`Door_Door_ID` ASC);
+CREATE INDEX `fk_Key_has_Door_Key1_idx` ON `key2door` (`Key_Key_ID` ASC);
+COMMIT;
